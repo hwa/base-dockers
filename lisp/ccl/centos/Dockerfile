@@ -1,7 +1,7 @@
 FROM centos:8
 
 ENV cclver 1.11.5-linuxx86
-#ENV buildpkgs "curl"
+ENV buildpkgs "gcc"
 ENV cclurl https://github.com/Clozure/ccl/releases/download/v1.11.5/ccl-${cclver}.tar.gz
 ENV qlurl https://beta.quicklisp.org/quicklisp.lisp
 
