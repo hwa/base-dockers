@@ -6,7 +6,7 @@ ENV cclurl https://github.com/Clozure/ccl/releases/download/v1.11.5/ccl-${cclver
 ENV qlurl https://beta.quicklisp.org/quicklisp.lisp
 
 
-#RUN yum -y install ${buildpkgs} && \
+RUN yum -y install ${buildpkgs} && \
 RUN curl -SL ${cclurl} | tar -xz
 RUN curl -SOL ${qlurl}
 
