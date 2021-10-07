@@ -10,7 +10,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_BIN_PACKAGE_FILENAME="glibc-bin-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
     ALPINE_GLIBC_I18N_PACKAGE_FILENAME="glibc-i18n-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
-    apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
+    apk add --no-cache --virtual=.build-dependencies ca-certificates && \
     echo \
         "-----BEGIN PUBLIC KEY-----\
         MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZ2u1KJKUu/fW4A25y9m\
@@ -21,7 +21,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m\
         1QIDAQAB\
         -----END PUBLIC KEY-----" | sed 's/   */\n/g' > "/etc/apk/keys/sgerrand.rsa.pub" && \
-    wget \
+    busybox wget \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
@@ -35,8 +35,6 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     echo "export LANG=$LANG" > /etc/profile.d/locale.sh && \
     \
     apk del glibc-i18n && \
-    \
-    rm "/root/.wget-hsts" && \
     apk del .build-dependencies && \
     rm \
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
@@ -47,18 +45,19 @@ RUN CCL_VERSION="1.12.1" && \
     ARCH="linuxx86" && \
     FILENAME="ccl-$CCL_VERSION-$ARCH.tar.gz" && \
     DOWNLOAD_URL="https://github.com/Clozure/ccl/releases/download/v$CCL_VERSION/$FILENAME" && \
-    wget "$DOWNLOAD_URL" && \
+    busybox wget "$DOWNLOAD_URL" && \
     tar zxf $FILENAME && \
     mkdir /opt/ccl && \
     cp ccl/lx86cl64* /opt/ccl && \
     ln -s /opt/ccl/lx86cl64 /usr/local/bin/ccl && \
-    rm -rf ccl
+    rm -rf ccl $FILENAME
 
-RUN wget https://beta.quicklisp.org/quicklisp.lisp
-RUN ccl --load quicklisp.lisp \
+RUN busybox wget https://beta.quicklisp.org/quicklisp.lisp && \
+    ccl --load quicklisp.lisp \
         --eval "(quicklisp-quickstart:install)" \
         --eval "(ql:quickload :swank)" \
-        --eval "(quit)"
+        --eval "(quit)" && \
+    rm quicklisp.lisp
 
 EXPOSE 4005
 # CMD ccl --load ~/quicklisp/setup.lisp \
