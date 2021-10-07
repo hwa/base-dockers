@@ -24,8 +24,10 @@ or appended with `(loop)` when inside Dockerfile CMD
 Notes
 ======
 
-Clozure-Cl is made compatible with Alpine with [glibc layer][1].
+Clozure-Cl is made compatible with Alpine with [sgerrand glibc layer][1],
+although its v2.34 doesn't work.
 
-sgerrand v2.34 can't work with CCL.
+Also check a popular [glibc compatible Alpine docker][2].
 
 [1]: https://github.com/sgerrand/alpine-pkg-glibc
+[2]: https://hub.docker.com/r/frolvlad/alpine-glibc/
