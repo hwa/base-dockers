@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 RUN busybox wget ${cclurl} && \
     tar zxf ${CCL_TAR_GZ} && \
-    mkdir /opt/ccl && cp ./ccl/lx86cl64* /opt/ccl/ && \
+    mkdir /opt/ccl && cp -r ./ccl/lx86cl64* ./ccl/x86-headers64 /opt/ccl/ && \
     rm -rf ./ccl ${CCL_TAR_GZ} && \
     ln -s /opt/ccl/lx86cl64 /usr/local/bin/ccl
 

@@ -48,7 +48,7 @@ RUN CCL_VERSION="1.12.1" && \
     busybox wget "$DOWNLOAD_URL" && \
     tar zxf $FILENAME && \
     mkdir /opt/ccl && \
-    cp ccl/lx86cl64* /opt/ccl && \
+    cp -r ccl/lx86cl64* ccl/x86-headers64 /opt/ccl && \
     ln -s /opt/ccl/lx86cl64 /usr/local/bin/ccl && \
     rm -rf ccl $FILENAME
 
