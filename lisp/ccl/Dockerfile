@@ -54,7 +54,7 @@ RUN CCL_VERSION="1.12.1" && \
 
 RUN busybox wget https://beta.quicklisp.org/quicklisp.lisp && \
     ccl --load quicklisp.lisp \
-        --eval "(quicklisp-quickstart:install)" \
+        --eval "(quicklisp-quickstart:install :path \"/opt/quicklisp/\")" \
         --eval "(ql:quickload :swank)" \
         --eval "(quit)" && \
     rm quicklisp.lisp
