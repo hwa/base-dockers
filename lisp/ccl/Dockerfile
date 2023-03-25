@@ -67,9 +67,10 @@ RUN rm /opt/quicklisp/asdf.lisp && \
     busybox wget -P /opt/quicklisp https://common-lisp.net/project/asdf/archives/asdf.lisp
 
 EXPOSE 4005
-# CMD ccl --load ~/quicklisp/setup.lisp \
-#         --eval "(ql:quickload :swank)" \
-#         --eval "(require :swank)" \
-#         --eval "(setq swank::*loopback-interface* \"0.0.0.0\")" \
-#         --eval "(swank:create-server :port 4005 :dont-close t)"
-#         --eval "(sleep 315360000000)"
+
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# CMD ["--eval", "(ql:quickload :app-system)",
+#      "--eval", "(app:startup)"]
