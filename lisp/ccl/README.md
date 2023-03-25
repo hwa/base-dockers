@@ -15,6 +15,7 @@ CMD ["--eval", "(ql:quickload :app-system)",
      "--eval", "(app:startup)"]
 
 ```
+or
 
 ``` yaml
 
@@ -22,7 +23,13 @@ command: ["--eval", "(ql:quickload :app-system)",
           "--eval", "(app:startup)"]
 
 ```
+or
 
+``` shell
+
+docker run -it tsanhwa/ccl --eval '(ql:quickload :app-system)'
+
+```
 
 Notes
 ======
