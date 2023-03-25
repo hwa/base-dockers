@@ -59,6 +59,9 @@ RUN busybox wget https://beta.quicklisp.org/quicklisp.lisp && \
         --eval "(quit)" && \
     rm quicklisp.lisp
 
+# Use latest asdf to make use of new feature such as package inferred system
+RUN busybox wget -P /opt/quicklisp https://common-lisp.net/project/asdf/archives/asdf.lisp
+
 EXPOSE 4005
 # CMD ccl --load ~/quicklisp/setup.lisp \
 #         --eval "(ql:quickload :swank)" \

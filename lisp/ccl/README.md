@@ -1,4 +1,7 @@
-Based on Alpine 3.14, exposing swank on port 4005.
+Based on Alpine 3.14, latest Quicklisp and ASDF, exposing swank on port 4005.
+
+Command `ccl` is install in /usr/local/bin, and on the `PATH`.
+Quicklisp is installed in /opt.
 
 
 Start ccl
