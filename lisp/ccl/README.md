@@ -31,6 +31,17 @@ docker run -it tsanhwa/ccl --eval '(ql:quickload :app-system)'
 
 ```
 
+To `quickload` additional system layering upon this image, use RUN such as:
+
+``` dockerfile
+
+RUN ccl \
+    --load /opt/quicklisp/setup.lisp \
+    --eval "(ql:quickload '(:hunchentoot))" \
+    --eval "(quit)"
+
+```
+
 Notes
 ======
 
@@ -39,6 +50,10 @@ although its v2.34 doesn't work.
 
 Also check a popular [glibc compatible Alpine docker][2] and its
 [github repo][3].
+
+Quicklisp is instaled in /opt so that local project can be easily mapped
+between the container and host file system where project source repo is
+symbolic linked to host's /opt.
 
 [1]: https://github.com/sgerrand/alpine-pkg-glibc
 [2]: https://hub.docker.com/r/frolvlad/alpine-glibc/
